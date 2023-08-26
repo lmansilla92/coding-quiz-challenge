@@ -1,9 +1,8 @@
 // Selecting timer element by class
 var timerEl = document.querySelector(".timer");
 var secondsLeft = 75;
-var startContainer = document.getElementById("#start-quiz-container");
+var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
-
 
 // Declares function that sets timer
 function setTimer() {
@@ -23,6 +22,7 @@ function setTimer() {
 // declares function that starts the quiz
 function startQuiz() {
     startContainer.setAttribute("style", "display: none;");
+    setTimer();
     }  
 
 
