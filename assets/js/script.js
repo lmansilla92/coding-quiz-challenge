@@ -31,6 +31,6 @@ function startQuiz() {
 
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
-startButton.addEventListener("click", startQuiz());
+startButton.addEventListener("click", startQuiz);
 
 
