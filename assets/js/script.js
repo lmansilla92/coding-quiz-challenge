@@ -4,6 +4,8 @@ var secondsLeft = 76;
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
 var questionContainer = document.getElementById("question-container");
+var score = 0;
+var correctAnswer = document.getElementsByClassName(".correct");
 
 // Hides question section
 questionContainer.setAttribute("style", "display: none")
@@ -14,10 +16,11 @@ function setTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
+        
 
         // If statement checks if timer is at 0 to run the function that stops the timer at 0;
         if(secondsLeft === 0) {
-            // Stops the timer at 0 when if conditional is true
+        // Stops the timer at 0 when if conditional is true
             clearInterval(timerInterval);
         }
     }, 1000);
@@ -30,16 +33,32 @@ function startQuiz() {
 
     if(startContainer){
         questionContainer.setAttribute("style", "display: flex;");
-    }
-
     }  
+}
+
+    // if(correctAnswer === "click"){
+
+    // }
 
 
+    // TODO: 
+    // If user answers correctly
+    // add 20 points to score (make score var)
+    // tool tip shows up that says Correct!
+    // If user answers incorrectly
+    // Subtract 20 seconds from timer
+    // tool tip shows up that says Wrong!
 
-// function that hides the main page
+// declares function that adds 20 points to score
+function correct() {
+    score + 20;
+}
 
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
 startButton.addEventListener("click", startQuiz);
+
+// adds event listener to the correct answer
+// correctAnswer.addEventListener("click", correct);
 
 
