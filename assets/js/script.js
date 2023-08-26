@@ -1,7 +1,9 @@
 // Selecting timer element by class
 var timerEl = document.querySelector(".timer");
 var secondsLeft = 75;
+var startContainer = document.getElementById("#start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
+
 
 // Declares function that sets timer
 function setTimer() {
@@ -18,8 +20,17 @@ function setTimer() {
     }, 1000);
 }
 
+// declares function that starts the quiz
+function startQuiz() {
+    startContainer.setAttribute("style", "display: none;");
+    }  
+
+
+
+// function that hides the main page
+
+
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
-startButton.addEventListener('click', function () {
-    setTimer();
-});
+startButton.addEventListener("click", startQuiz());
+
 
