@@ -1,8 +1,12 @@
 // Selecting timer element by class
 var timerEl = document.querySelector(".timer");
-var secondsLeft = 75;
+var secondsLeft = 76;
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
+var questionContainer = document.getElementById("question-container");
+
+// Hides question section
+questionContainer.setAttribute("style", "display: none")
 
 // Declares function that sets timer
 function setTimer() {
@@ -23,6 +27,11 @@ function setTimer() {
 function startQuiz() {
     startContainer.setAttribute("style", "display: none;");
     setTimer();
+
+    if(startContainer){
+        questionContainer.setAttribute("style", "display: flex;");
+    }
+
     }  
 
 
