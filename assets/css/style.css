@@ -1,0 +1,59 @@
+/* button colors */
+:root{
+    --nohover: rgb(17, 101, 161);
+    --hover: rgb(120, 180, 223);
+}
+
+.score-timer-container{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    margin: 4vh 4vw 1vh 3vw
+}
+
+.high-scores{
+    background: white;
+    color: var(--nohover);
+}
+
+.high-scores:hover{
+    color: var(--hover);
+}
+
+.start-quiz-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 11vh 12vw;
+}
+
+h1{
+    font-size: 2.5rem;
+}
+
+.start-quiz-p{
+    font-size: 1.5rem;
+    padding: 4vh 12vw;
+    line-height: 3.5vh;
+}
+
+.start-quiz{
+    font-size: 1.5rem;
+    width: 11vw;
+    padding: 1vh 0;
+    margin: auto;
+    color: white;
+    background: var(--nohover);
+}
+
+.start-quiz:hover{
+    background: var(--hover);
+}
+
+
+/* Buttons */
+button{
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
