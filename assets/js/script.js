@@ -34,20 +34,9 @@ function startQuiz() {
     if(startContainer){
         questionContainer.setAttribute("style", "display: flex;");
     }  
+
+    correctAnswer.addEventListener("click", correct);
 }
-
-    // if(correctAnswer === "click"){
-
-    // }
-
-
-    // TODO: 
-    // If user answers correctly
-    // add 20 points to score (make score var)
-    // tool tip shows up that says Correct!
-    // If user answers incorrectly
-    // Subtract 20 seconds from timer
-    // tool tip shows up that says Wrong!
 
 // declares function that adds 20 points to score
 function correct() {
@@ -62,3 +51,10 @@ startButton.addEventListener("click", startQuiz);
 // correctAnswer.addEventListener("click", correct);
 
 
+    // TODO: 
+    // If user answers correctly
+    // add 20 points to score (make score var)
+    // tool tip shows up that says Correct!
+    // If user answers incorrectly
+    // Subtract 20 seconds from timer
+    // tool tip shows up that says Wrong!
