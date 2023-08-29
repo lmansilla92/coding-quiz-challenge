@@ -41,8 +41,9 @@ h1, h2{
 }
 
 
-/* Buttons */
-button{
+/* Start Quiz Button and Answers */
+button, 
+li{
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -54,7 +55,8 @@ button{
     background: var(--nohover);
 }
 
-button:hover{
+button:hover,
+li:hover{
     background: var(--hover); 
 }
 
@@ -67,7 +69,7 @@ button:hover{
     margin: 0 0 20px 250px;
 }
 
-.answer{
+li{
     margin: 13px 0 0 250px;
     text-align: left;
     width: 18vw;

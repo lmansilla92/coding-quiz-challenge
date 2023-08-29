@@ -3,16 +3,18 @@ var timerEl = document.querySelector(".timer");
 var secondsLeft = 76;
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
-var questionContainer = document.getElementById("question-container");
+var questionContainer = document.querySelector("#question-container");
 var score = 0;
 var correctAnswer = document.getElementsByClassName(".correct");
 
 var questionsElement = document.querySelector(".questions");
-var answers = document.querySelector(".answers");
+var answersElement = document.querySelector(".answers");
+
+var index = 0;
 
 // Declares an array of questions and answers
 var questions = [
-    { question: "Commonly used data types DO NOT inlucde:", 
+    { question: "Commonly used data types DO NOT include:", 
       answers: ["Strings", "Booleans", "Alerts", "Numbers"], 
       answer: 2},
     { question: "What language is used to style?",
@@ -23,35 +25,50 @@ var questions = [
       answer: 0},
 ];
 
-
-
-
-
-
-
-
-
-
+// Navigates through questions
+function navigate(direction) {
+    index = index + direction;
+    if (index < 0) { 
+      index = questions.length - 1; 
+    } else if (index > questions.length - 1) { 
+      index = 0;
+    }
+    questionsElement = questions[index];
+  }
+  
 
 
 // declares function that starts the quiz
 function startQuiz() {
+    // Hides the starting section with the button that starts the quiz
     startContainer.setAttribute("style", "display: none;");
+    // Calls function to set the timer
     setTimer();
-
+    
+    // Makes the question container visible 
     if(startContainer){
         questionContainer.setAttribute("style", "display: flex;");
+        // Calls function that renders the question
+        renderQuestion();
+        // Calls function that renders the answers
+        renderAnswers();
+
     }  
+}
 
-    function navigate(direction) {
-        index = index + direction;
-        if (index > images.length - 1) { 
-          index = 0;
-        }
-        questions = questions[index];
-        carousel.style.backgroundImage = "url('" + currentImage + "')";
-      }
+// Declares a function that renders the questions
+function renderQuestion() {
+    questionsElement.textContent = questions[index].question;
+}
 
+// Declares a function that renders the answers
+function renderAnswers() {
+    answersElement.innerHTML = "";
+    for (var i = 0; i < questions[index].answers.length; i++) {
+        var renderedAnswer = document.createElement("li");
+        renderedAnswer.textContent = questions[index].answers[i];
+        answersElement.appendChild(renderedAnswer);
+    }
 }
 
 
@@ -85,16 +102,15 @@ function correct() {
 
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", function(event) {
+    startQuiz();
+    navigate(1);
+});
 
-// adds event listener to the correct answer
-// correctAnswer.addEventListener("click", correct);
+  
+  
 
 
-    // TODO: 
-    // If user answers correctly
-    // add 20 points to score (make score var)
-    // tool tip shows up that says Correct!
-    // If user answers incorrectly
-    // Subtract 20 seconds from timer
-    // tool tip shows up that says Wrong!
+  
+
+  
