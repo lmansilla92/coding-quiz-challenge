@@ -7,6 +7,56 @@ var questionContainer = document.getElementById("question-container");
 var score = 0;
 var correctAnswer = document.getElementsByClassName(".correct");
 
+var questionsElement = document.querySelector(".questions");
+var answers = document.querySelector(".answers");
+
+// Declares an array of questions and answers
+var questions = [
+    { question: "Commonly used data types DO NOT inlucde:", 
+      answers: ["Strings", "Booleans", "Alerts", "Numbers"], 
+      answer: 2},
+    { question: "What language is used to style?",
+      answers: ["JavaScript", "Python", "HTML", "CSS"], 
+      answer: 3},
+    { question: "What does the acronym DOM stand for?",
+      answers: ["Document Object Model", "Document Original Model", "Document Option Model", "Docuemnt Object Mode"], 
+      answer: 0},
+];
+
+
+
+
+
+
+
+
+
+
+
+
+// declares function that starts the quiz
+function startQuiz() {
+    startContainer.setAttribute("style", "display: none;");
+    setTimer();
+
+    if(startContainer){
+        questionContainer.setAttribute("style", "display: flex;");
+    }  
+
+    function navigate(direction) {
+        index = index + direction;
+        if (index > images.length - 1) { 
+          index = 0;
+        }
+        questions = questions[index];
+        carousel.style.backgroundImage = "url('" + currentImage + "')";
+      }
+
+}
+
+
+
+
 // Hides question section
 questionContainer.setAttribute("style", "display: none")
 
@@ -26,17 +76,7 @@ function setTimer() {
     }, 1000);
 }
 
-// declares function that starts the quiz
-function startQuiz() {
-    startContainer.setAttribute("style", "display: none;");
-    setTimer();
 
-    if(startContainer){
-        questionContainer.setAttribute("style", "display: flex;");
-    }  
-
-    correctAnswer.addEventListener("click", correct);
-}
 
 // declares function that adds 20 points to score
 function correct() {
