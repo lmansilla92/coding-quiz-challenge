@@ -22,6 +22,8 @@ var questions = [
       answer: 0},
 ];
 
+
+
 // Navigates through questions
 function navigate(direction) {
     index = index + direction;
@@ -47,6 +49,14 @@ function startQuiz() {
         // Calls function that renders the answers
         renderAnswers();
 
+    // Event listener for answers
+    answersElement.addEventListener("click", function(){
+        debugger;
+        if (answersElement == "Alerts"){
+        console.log("clicked Alerts");
+        }
+    });
+
 }  
 
 // Declares a function that renders the questions
@@ -63,14 +73,6 @@ function renderAnswers() {
         renderedAnswer.textContent = questions[index].answers[i];
         answersElement.appendChild(renderedAnswer);
     }
-
-    answersElement.addEventListener("click", function(){
-        if (answer = 2){
-            console.log("Correct!");
-        } else {
-            console.log("Wrong!");
-        }
-    });
 };
 
 // Declares function that sets timer
@@ -96,7 +98,7 @@ function correct() {
 
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
-startButton.addEventListener("click", function(event) {
+startButton.addEventListener("click", function() {
     startQuiz();
     navigate(1);
 });
