@@ -64,11 +64,13 @@ function renderAnswers() {
         answersElement.appendChild(renderedAnswer);
     }
 
-    var userChoice = document.getElementsByTagName("li");
-    userChoice = function (event) {
-        userChoice.addEventListener("click", event);
-    }
-    userChoice();
+    answersElement.addEventListener("click", function(){
+        if (answer = 2){
+            console.log("Correct!");
+        } else {
+            console.log("Wrong!");
+        }
+    });
 };
 
 // Declares function that sets timer
