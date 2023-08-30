@@ -1,15 +1,12 @@
 // Selecting timer element by class
 var timerEl = document.querySelector(".timer");
-var secondsLeft = 76;
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
 var questionContainer = document.querySelector("#question-container");
-var score = 0;
-var correctAnswer = document.getElementsByClassName(".correct");
-
 var questionsElement = document.querySelector(".questions");
 var answersElement = document.querySelector(".answers");
-
+var secondsLeft = 76;
+var score = 0;
 var index = 0;
 
 // Declares an array of questions and answers
@@ -34,7 +31,7 @@ function navigate(direction) {
       index = 0;
     }
     questionsElement = questions[index];
-  }
+}
   
 
 
@@ -45,21 +42,18 @@ function startQuiz() {
     // Calls function to set the timer
     setTimer();
     
-    // Makes the question container visible 
-    if(startContainer){
-        questionContainer.setAttribute("style", "display: flex;");
         // Calls function that renders the question
         renderQuestion();
         // Calls function that renders the answers
         renderAnswers();
 
-    }  
-}
+}  
 
 // Declares a function that renders the questions
 function renderQuestion() {
     questionsElement.textContent = questions[index].question;
 }
+
 
 // Declares a function that renders the answers
 function renderAnswers() {
@@ -69,13 +63,13 @@ function renderAnswers() {
         renderedAnswer.textContent = questions[index].answers[i];
         answersElement.appendChild(renderedAnswer);
     }
-}
 
-
-
-
-// Hides question section
-questionContainer.setAttribute("style", "display: none")
+    var userChoice = document.getElementsByTagName("li");
+    userChoice = function (event) {
+        userChoice.addEventListener("click", event);
+    }
+    userChoice();
+};
 
 // Declares function that sets timer
 function setTimer() {
@@ -92,8 +86,6 @@ function setTimer() {
         }
     }, 1000);
 }
-
-
 
 // declares function that adds 20 points to score
 function correct() {
