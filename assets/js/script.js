@@ -16,10 +16,10 @@ var questions = [
       answer: "Alerts"},
     { question: "What language is used to style?",
       answers: ["JavaScript", "Python", "HTML", "CSS"], 
-      answer: 3},
+      answer: "CSS"},
     { question: "What does the acronym DOM stand for?",
       answers: ["Document Object Model", "Document Original Model", "Document Option Model", "Docuemnt Object Mode"], 
-      answer: 0},
+      answer: "Document Object Model"},
 ];
 
 // Navigates through questions
@@ -31,7 +31,7 @@ function navigate(direction) {
       index = 0;
     }
     questionsElement = questions[index];
-}
+};
 
 // Declares function that starts the quiz
 function startQuiz() {
@@ -44,12 +44,24 @@ function startQuiz() {
         renderQuestion();
         // Calls function that renders the answers
         renderAnswers();
-}  
+}; 
 
 // Declares a function that renders the questions
 function renderQuestion() {
     questionsElement.textContent = questions[index].question;
+};
+
+// Adds event listener to answers parent element 
+answersElement.addEventListener("click", function(){
+    // If statement checks if the answer chosen's text content matches the answer in the question
+    if (event.target.textContent !== questions[index].answer){ 
+console.log("Wrong");
+} else {
+    console.log("Correct");
 }
+});
+
+
 
 // Declares a function that renders the answers
 function renderAnswers() {
@@ -61,15 +73,6 @@ function renderAnswers() {
         answersElement.appendChild(renderedAnswer);
 
         console.log(renderedAnswer.textContent); // Currently logs the content inside each li 
-
-        renderedAnswer.addEventListener("click", function(){
-                console.log(renderedAnswer); // Currently logs "Numbers" everytime an answer is clicked 
-                if (renderedAnswer.textContent !== "Alerts"){ // Fix if conditional 
-            console.log("Wrong");
-            } else {
-                console.log("Correct");
-            }
-        })
     } console.log(answersElement.textContent); // Currently logs content inside the answersElement
 };
 
@@ -86,17 +89,17 @@ function setTimer() {
             clearInterval(timerInterval);
         }
     }, 1000);
-}
+};
 
 // declares function that adds 20 points to score
 function correct() {
     score + 20;
-}
+};
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
 startButton.addEventListener("click", function() {
     startQuiz();
-    navigate(1);
+    navigate(0); // changed to 0
 });
 
   
