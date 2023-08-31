@@ -22,8 +22,6 @@ var questions = [
       answer: 0},
 ];
 
-
-
 // Navigates through questions
 function navigate(direction) {
     index = index + direction;
@@ -34,8 +32,6 @@ function navigate(direction) {
     }
     questionsElement = questions[index];
 }
-  
-
 
 // declares function that starts the quiz
 function startQuiz() {
@@ -48,22 +44,12 @@ function startQuiz() {
         renderQuestion();
         // Calls function that renders the answers
         renderAnswers();
-
-    // Event listener for answers
-    answersElement.addEventListener("click", function(){
-        debugger;
-        if (answersElement == "Alerts"){
-        console.log("clicked Alerts");
-        }
-    });
-
 }  
 
 // Declares a function that renders the questions
 function renderQuestion() {
     questionsElement.textContent = questions[index].question;
 }
-
 
 // Declares a function that renders the answers
 function renderAnswers() {
@@ -82,7 +68,6 @@ function setTimer() {
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
         
-
         // If statement checks if timer is at 0 to run the function that stops the timer at 0;
         if(secondsLeft === 0) {
         // Stops the timer at 0 when if conditional is true
@@ -95,7 +80,6 @@ function setTimer() {
 function correct() {
     score + 20;
 }
-
 
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
 startButton.addEventListener("click", function() {
