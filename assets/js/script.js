@@ -13,7 +13,7 @@ var index = 0;
 var questions = [
     { question: "Commonly used data types DO NOT include:", 
       answers: ["Strings", "Booleans", "Alerts", "Numbers"], 
-      answer: 2},
+      answer: "Alerts"},
     { question: "What language is used to style?",
       answers: ["JavaScript", "Python", "HTML", "CSS"], 
       answer: 3},
@@ -33,7 +33,7 @@ function navigate(direction) {
     questionsElement = questions[index];
 }
 
-// declares function that starts the quiz
+// Declares function that starts the quiz
 function startQuiz() {
     // Hides the starting section with the button that starts the quiz
     startContainer.setAttribute("style", "display: none;");
@@ -53,12 +53,24 @@ function renderQuestion() {
 
 // Declares a function that renders the answers
 function renderAnswers() {
+    // Clears the content inside the answer element when new questions are generated
     answersElement.innerHTML = "";
     for (var i = 0; i < questions[index].answers.length; i++) {
         var renderedAnswer = document.createElement("li");
         renderedAnswer.textContent = questions[index].answers[i];
         answersElement.appendChild(renderedAnswer);
-    }
+
+        console.log(renderedAnswer.textContent); // Currently logs the content inside each li 
+
+        renderedAnswer.addEventListener("click", function(){
+                console.log(renderedAnswer); // Currently logs "Numbers" everytime an answer is clicked 
+                if (renderedAnswer.textContent !== "Alerts"){ // Fix if conditional 
+            console.log("Wrong");
+            } else {
+                console.log("Correct");
+            }
+        })
+    } console.log(answersElement.textContent); // Currently logs content inside the answersElement
 };
 
 // Declares function that sets timer
