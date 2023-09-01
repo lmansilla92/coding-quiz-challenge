@@ -1,4 +1,5 @@
 // Selecting timer element by class
+var body = document.body;
 var timerEl = document.querySelector(".timer");
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
@@ -64,6 +65,17 @@ function renderAnswers() {
     };
 };
 
+function isQuizOver(){
+    if(index == questions.length){
+        endQuiz();
+    }
+}
+
+function endQuiz(){
+    body.setAttribute("style", "display: none");
+}
+
+
 
 // Declares a function that renders the questions
 function renderQuestion() {
@@ -71,7 +83,7 @@ function renderQuestion() {
     questionsElement.innerHTML = "";
         var renderedQuestion = document.createElement("h2");
         renderedQuestion.textContent = questions[index].question;
-        questionsElement.appendChild(renderedQuestion); // Bug creates error!
+        questionsElement.appendChild(renderedQuestion);
 };
 
 //Adds event listener to answers parent element 
@@ -87,19 +99,19 @@ answersElement.addEventListener("click", function(event){
         feedbackElement.textContent = "Wrong!";
     // This code only runs if the correct answer is clicked
     } else {
+        debugger;
     console.log("Correct");
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
     feedbackElement.textContent = "Correct!";
     }
     index ++;
-    setTimeout(() => {
-        renderQuestion();
-        renderAnswers();
+    if(index !== questions.length){
+        setTimeout(() => {
+            renderQuestion();
+            renderAnswers();
       }, 1000);
-    // setTimeout()
-    // renderQuestion(); 
-    // renderAnswers();
+    };
 });
 
 // Declares function that sets timer
@@ -110,9 +122,10 @@ function setTimer() {
         timerEl.textContent = "Time: " + secondsLeft;
         
         // If statement checks if timer is at 0 to run the function that stops the timer at 0;
-        if(secondsLeft === 0) {
+        if(secondsLeft === 0 || index == questions.length) {
         // Stops the timer at 0 when if conditional is true
             clearInterval(timerInterval);
+            endQuiz();
         }
     }, 1000);
 };
