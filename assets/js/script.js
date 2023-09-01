@@ -57,7 +57,7 @@ function startQuiz() {
 
 // Declares a function that renders the questions
 function renderQuestion() {
-    questionsElement.textContent = "";
+    questionsElement.innerHTML = "";
     questionsElement.textContent = questions[index].question;
 };
 
