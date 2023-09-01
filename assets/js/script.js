@@ -89,8 +89,13 @@ answersElement.addEventListener("click", function(){
     feedbackElement.textContent = "Correct!";
     }
     index ++;
-    renderQuestion(); 
-    renderAnswers();
+    setTimeout(() => {
+        renderQuestion();
+        renderAnswers();
+      }, 1000);
+    // setTimeout()
+    // renderQuestion(); 
+    // renderAnswers();
 });
 
 // Declares function that sets timer
