@@ -5,6 +5,7 @@ var startButton = document.querySelector(".start-quiz");
 var questionContainer = document.querySelector("#question-container");
 var questionsElement = document.querySelector(".questions");
 var answersElement = document.querySelector(".answers");
+var feedbackElement = document.querySelector(".feedback");
 var secondsLeft = 76;
 var score = 0;
 var index = 0;
@@ -31,7 +32,15 @@ function navigate(direction) {
       index = 0;
     }
     questionsElement = questions[index];
+
+    renderQuestion();
+    renderAnswers();
 };
+
+
+
+// Hides the feedback at page load
+feedbackElement.setAttribute("style", "display: none;");
 
 // Declares function that starts the quiz
 function startQuiz() {
@@ -48,6 +57,7 @@ function startQuiz() {
 
 // Declares a function that renders the questions
 function renderQuestion() {
+    questionsElement.textContent = "";
     questionsElement.textContent = questions[index].question;
 };
 
@@ -55,10 +65,18 @@ function renderQuestion() {
 answersElement.addEventListener("click", function(){
     // If statement checks if the answer chosen's text content matches the answer in the question
     if (event.target.textContent !== questions[index].answer){ 
-console.log("Wrong");
-} else {
+        console.log("Wrong"); 
+        feedbackElement.setAttribute("style", "display: true;");
+        feedbackElement.textContent = "Wrong!";
+
+    } else {
     console.log("Correct");
-}
+    debugger;
+    // Makes feedback element visible
+    feedbackElement.setAttribute("style", "display: true;");
+    feedbackElement.textContent = "Correct!";
+    } 
+    navigate(1);
 });
 
 
