@@ -32,9 +32,6 @@ function navigate(direction) {
       index = 0;
     }
     questionsElement = questions[index];
-
-    renderQuestion();
-    renderAnswers();
 };
 
 
@@ -55,10 +52,23 @@ function startQuiz() {
         renderAnswers();
 }; 
 
+// Declares a function that renders the answers
+function renderAnswers() {
+    // Clears the content inside the answer element when new questions are generated
+    answersElement.innerHTML = "";
+    for (var i = 0; i < questions[index].answers.length; i++) {
+        var renderedAnswer = document.createElement("li");
+        renderedAnswer.textContent = questions[index].answers[i];
+        answersElement.appendChild(renderedAnswer);
+    } 
+};
+
 // Declares a function that renders the questions
 function renderQuestion() {
     questionsElement.innerHTML = "";
-    questionsElement.textContent = questions[index].question;
+        var renderedQuestion = document.createElement("h2");
+        renderedQuestion.textContent = questions[index].question;
+        questionsElement.appendChild(renderedQuestion); // Bug creates error!
 };
 
 // Adds event listener to answers parent element 
@@ -75,24 +85,10 @@ answersElement.addEventListener("click", function(){
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
     feedbackElement.textContent = "Correct!";
-    } 
+    }
     navigate(1);
+    renderQuestion(); 
 });
-
-
-
-// Declares a function that renders the answers
-function renderAnswers() {
-    // Clears the content inside the answer element when new questions are generated
-    answersElement.innerHTML = "";
-    for (var i = 0; i < questions[index].answers.length; i++) {
-        var renderedAnswer = document.createElement("li");
-        renderedAnswer.textContent = questions[index].answers[i];
-        answersElement.appendChild(renderedAnswer);
-
-        console.log(renderedAnswer.textContent); // Currently logs the content inside each li 
-    } console.log(answersElement.textContent); // Currently logs content inside the answersElement
-};
 
 // Declares function that sets timer
 function setTimer() {
@@ -117,7 +113,6 @@ function correct() {
 // Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
 startButton.addEventListener("click", function() {
     startQuiz();
-    navigate(0); // changed to 0
 });
 
   
