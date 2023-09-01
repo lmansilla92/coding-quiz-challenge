@@ -61,8 +61,9 @@ function renderAnswers() {
         var renderedAnswer = document.createElement("li");
         renderedAnswer.textContent = questions[index].answers[i];
         answersElement.appendChild(renderedAnswer);
-    } 
+    };
 };
+
 
 // Declares a function that renders the questions
 function renderQuestion() {
@@ -73,17 +74,20 @@ function renderQuestion() {
         questionsElement.appendChild(renderedQuestion); // Bug creates error!
 };
 
-// Adds event listener to answers parent element 
-answersElement.addEventListener("click", function(){
-    // If statement checks if the answer chosen's text content matches the answer in the question
+//Adds event listener to answers parent element 
+answersElement.addEventListener("click", function(event){
+    // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
+    if (event.target.textContent === answersElement.textContent){
+        return;
+    }
+    // Checks if user selected wrong answer
     if (event.target.textContent !== questions[index].answer){ 
         console.log("Wrong"); 
         feedbackElement.setAttribute("style", "display: true;");
         feedbackElement.textContent = "Wrong!";
-
+    // This code only runs if the correct answer is clicked
     } else {
     console.log("Correct");
-    debugger;
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
     feedbackElement.textContent = "Correct!";
