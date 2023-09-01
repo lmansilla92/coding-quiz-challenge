@@ -24,15 +24,16 @@ var questions = [
 ];
 
 // Navigates through questions
-function navigate(direction) {
-    index = index + direction;
-    if (index < 0) { 
-      index = questions.length - 1; 
-    } else if (index > questions.length - 1) { 
-      index = 0;
-    }
-    questionsElement = questions[index];
-};
+// function navigate(direction) {
+//     index = index + direction;
+//     if (index < 0) { 
+//       index = questions.length - 1; 
+//     } else if (index > questions.length - 1) { 
+//       index = 0;
+//     }
+    // questionsElement = questions[index];
+// };
+
 
 
 
@@ -65,6 +66,7 @@ function renderAnswers() {
 
 // Declares a function that renders the questions
 function renderQuestion() {
+    feedbackElement.setAttribute("style", "display: none;");
     questionsElement.innerHTML = "";
         var renderedQuestion = document.createElement("h2");
         renderedQuestion.textContent = questions[index].question;
@@ -86,8 +88,9 @@ answersElement.addEventListener("click", function(){
     feedbackElement.setAttribute("style", "display: true;");
     feedbackElement.textContent = "Correct!";
     }
-    navigate(1);
+    index ++;
     renderQuestion(); 
+    renderAnswers();
 });
 
 // Declares function that sets timer
