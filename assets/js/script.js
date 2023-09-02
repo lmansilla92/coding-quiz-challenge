@@ -1,6 +1,7 @@
 // Selecting timer element by class
 var body = document.body;
 var timerEl = document.querySelector(".timer");
+var timerScoreContainer = document.querySelector(".score-timer-container");
 var startContainer = document.getElementById("start-quiz-container");
 var startButton = document.querySelector(".start-quiz");
 var questionContainer = document.querySelector("#question-container");
@@ -9,9 +10,17 @@ var answersElement = document.querySelector(".answers");
 var feedbackElement = document.querySelector(".feedback");
 var initialsContainer = document.getElementById("score-initial");
 var finalScore = document.querySelector(".final-score");
-var secondsLeft = 76;
+var initialsElement = document.querySelector(".initials");
+var highScoresButton = document.querySelector(".high-scores-btn");
+var highScoresSection = document.getElementById("high-scores");
+var savedScoresList = document.querySelector(".initial-high-score")
+var submit = document.querySelector(".submit");
+var isHighScores = false;
+var secondsLeft = 31;
 var score = 0;
 var index = 0;
+var listOfScoreHistory = [];
+var inputValue = "";
 
 
 // Declares an array of questions and answers
@@ -33,6 +42,7 @@ feedbackElement.setAttribute("style", "display: none;");
 
 // Declares function that starts the quiz
 function startQuiz() {
+    isHighScores = false;
     // Hides the starting section with the button that starts the quiz
     startContainer.setAttribute("style", "display: none;");
     // Calls function to set the timer
@@ -43,6 +53,62 @@ function startQuiz() {
         // Calls function that renders the answers
         renderAnswers();
 }; 
+
+function renderHighScore(){
+    debugger;
+    savedScoresList.innerHTML = "";
+
+    for (var i = 0; i < listOfScoreHistory.length; i++) {
+        var savedHighScore = localStorage.getItem("score");
+        var renderedHighScore = listOfScoreHistory[i] + " - " + savedHighScore;
+        var p = document.createElement("p");
+        p.innerHTML = renderedHighScore;
+        p.setAttribute("data-index", i);
+        savedScoresList.appendChild(p);
+    };
+
+
+
+    // var inputValue = document.querySelector('input').value;
+    // var savedInitials = inputValue;
+    // var savedHighScore = localStorage.getItem("score");
+    // var renderedHighScore = document.createElement("p");
+    // renderedHighScore.textContent = savedInitials + " - " + savedHighScore;
+    // savedScore.appendChild(renderedHighScore);
+};
+
+    function storeScores() {
+    localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
+}
+
+submit.addEventListener("click", function(){
+    inputValue = document.querySelector('input').value;
+    if(inputValue == ""){
+        return;
+    }
+    listOfScoreHistory.push(inputValue);
+    inputValue = "";
+    // call function that stores 
+    storeScores();
+    // saveScore();
+    renderHighScore();
+    initialsContainer.setAttribute("style", "display: none");
+    highScoresSection.setAttribute("style", "display: block");
+
+});
+
+
+
+highScoresButton.addEventListener("click", function(){
+    isHighScores = true;
+    clearInterval(highScoresButton);
+    timerScoreContainer.setAttribute("style", "display: none");
+    questionContainer.setAttribute("style", "display: none");
+    startContainer.setAttribute("style", "display: none");
+    initialsContainer.setAttribute("style", "display:none");
+    highScoresSection.setAttribute("style", "display: block");
+
+})
 
 // Declares a function that renders the answers
 function renderAnswers() {
@@ -61,10 +127,18 @@ function isQuizOver(){
     }
 }
 
+function saveScore(){
+    var initials = initialsElement.value.trim();
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("score", score);
+}
+
+
 function endQuiz(){
     questionContainer.setAttribute("style", "display: none");
     initialsContainer.setAttribute("style", "display: block");
     finalScore.textContent = "Your final score is " + score + "!";
+    saveScore();
 }
 
 
@@ -101,7 +175,6 @@ answersElement.addEventListener("click", function(event){
         decrementTime();
     // This code only runs if the correct answer is clicked
     } else {
-        debugger;
     console.log("Correct");
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
@@ -125,10 +198,10 @@ function setTimer() {
         timerEl.textContent = "Time: " + secondsLeft;
         
         // If statement checks if timer is at 0 to run the function that stops the timer at 0;
-        if(secondsLeft === 0 || index == questions.length) {
+        if(secondsLeft === 0 || index == questions.length || isHighScores == true) {
         // Stops the timer at 0 when if conditional is true
             clearInterval(timerInterval);
-            endQuiz();
+            isQuizOver();
         }
     }, 1000);
 };

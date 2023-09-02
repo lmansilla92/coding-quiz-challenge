@@ -12,14 +12,14 @@
     <body>
         <!-- High Scores/Timer -->
         <div class="score-timer-container">
-            <button class="high-scores">View High Scores</button>
+            <button class="high-scores-btn">View High Scores</button>
             <span class="timer">Time: </span>
         </div>
                 
         <!-- Main Section -->
         <section id="start-quiz-container">
             <h1>Coding Quiz Challenge</h1>
-            <p class="start-quiz-p">Try to answer the following code-related questions within the time limit. Incorrect answers will penalize your score/time by ten seconds.</p>
+            <p class="start-quiz-p">Try to answer the following code-related questions within the time limit. Correct answers are worth 10 points. <br>Incorrect answers will penalize your time by ten seconds. <br>Good Luck!</p>
             <button class="start-quiz">Start Quiz</button>
         </section>
 
@@ -30,15 +30,25 @@
             <p class="feedback"></p>
         </section>
 
-        <!-- High Scores Section -->
+        <!-- Initials Input Section -->
         <section id="score-initial">
             <h3>All Done!</h3>
             <p class="final-score"></p>
             <label>Enter Initials</label>
-            <input type="text">
+            <input type="text" class="initials">
             <button class="submit">Submit</button>
-
         </section>
+
+        <!-- High Scores Section -->
+        <section id="high-scores">
+            <h3>High Scores</h3>
+            <section class="initial-high-score">
+            </section>
+            <button class="clear-scores">Clear High Scores</button>
+            <button class="try-again">Try Again?</button>
+        </section>
+
+
 
     
     </body>

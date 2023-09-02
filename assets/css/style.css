@@ -11,16 +11,20 @@
     margin: 4vh 4vw 1vh 3vw;
 }
 
-.high-scores{
+.high-scores-btn{
     background: white;
     color: var(--nohover);
     margin: 0;
     width: 16vw;
 }
 
-.high-scores:hover{
+.high-scores-btn:hover{
     color: var(--hover);
     background: white;
+}
+
+.clear-scores, .try-again{
+    width: 15rem;
 }
 
 #start-quiz-container{
@@ -43,7 +47,7 @@ input{
     width: 23.5rem;
 }
 
-#score-initial{
+#score-initial, #high-scores{
     margin: 11vh 26vw;
     display: none;
 }
