@@ -42,11 +42,15 @@ var questions = [
 ];
 
 // Load existing high scores from local storage
-var storedScores = localStorage.getItem("listOfNameHistory");
-if (storedScores) {
-    listOfNameHistory = JSON.parse(storedScores);
+var storedNames = localStorage.getItem("listOfNameHistory");
+if (storedNames) {
+    listOfNameHistory = JSON.parse(storedNames);
 }
 
+var storedScores = localStorage.getItem("listOfScoreHistory");
+if (storedScores) {
+    listOfScoreHistory = JSON.parse(storedScores);
+}
 
 // Hides the feedback at page load
 feedbackElement.setAttribute("style", "display: none;");
@@ -82,17 +86,16 @@ function resetQuiz(){
     score = 0;
     index = 0;
     isNewQuiz = true;
+    timerScoreContainer.setAttribute("style", "display: flex");
 }
 
 tryAgainButton.addEventListener("click", function() {
-    debugger;
     resetQuiz();
     startQuiz();
 })
 
 
 function renderHighScore(){
-    debugger;
     savedScoresList.innerHTML = "";
 
     for (var i = 0; i < listOfNameHistory.length; i++) {
@@ -108,11 +111,12 @@ function renderHighScore(){
 
 function storeScores() {
     localStorage.setItem("listOfNameHistory", JSON.stringify(listOfNameHistory));
-}
-
-function storeInitials(){
     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
 }
+
+// function storeInitials(){
+//     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
+// }
 
 submit.addEventListener("click", function(){
     inputValue = document.querySelector('input').value;
@@ -160,11 +164,11 @@ function isQuizOver(){
     }
 }
 
-function saveScore(){
-    var initials = initialsElement.value.trim();
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", score);
-}
+// function saveScore(){
+//     var initials = initialsElement.value.trim();
+//     localStorage.setItem("initials", initials);
+//     localStorage.setItem("score", score);
+// }
 
 
 function endQuiz(){
@@ -172,7 +176,7 @@ function endQuiz(){
     initialsContainer.setAttribute("style", "display: block");
     finalScore.textContent = "Your final score is " + score + "!";
     listOfScoreHistory.push(score);
-    saveScore();
+
 }
 
 
