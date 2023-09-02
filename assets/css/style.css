@@ -23,6 +23,10 @@
     background: white;
 }
 
+.final-score{
+    margin-bottom: 2rem;
+}
+
 .clear-scores, .try-again{
     width: 15rem;
 }

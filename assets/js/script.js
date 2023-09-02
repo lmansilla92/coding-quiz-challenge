@@ -41,18 +41,18 @@ var questions = [
       answer: "Document Object Model"},
 ];
 
-// Load existing high scores from local storage
+// Loads existing names from local storage
 var storedNames = localStorage.getItem("listOfNameHistory");
 if (storedNames) {
     listOfNameHistory = JSON.parse(storedNames);
 }
-
+// Loads existing scores from local storage
 var storedScores = localStorage.getItem("listOfScoreHistory");
 if (storedScores) {
     listOfScoreHistory = JSON.parse(storedScores);
 }
 
-// Hides the feedback at page load
+// Hides the feedback at page load so top border doesn't show
 feedbackElement.setAttribute("style", "display: none;");
 
 // Declares function that starts the quiz
@@ -73,7 +73,7 @@ function startQuiz() {
         renderAnswers();
 }; 
 
-
+// Adds event listener with function to clear scores and stored arrays
 clearScoresButton.addEventListener("click", function() {
     savedScoresList.innerHTML = "";
     localStorage.clear();
@@ -81,6 +81,7 @@ clearScoresButton.addEventListener("click", function() {
     listOfScoreHistory = [];
 });
 
+// Resets values to restart quiz
 function resetQuiz(){
     secondsLeft = 31;
     score = 0;
@@ -89,12 +90,13 @@ function resetQuiz(){
     timerScoreContainer.setAttribute("style", "display: flex");
 }
 
+// Adds event listener to restart quiz
 tryAgainButton.addEventListener("click", function() {
     resetQuiz();
     startQuiz();
 })
 
-
+// Displays High Scores to the page
 function renderHighScore(){
     savedScoresList.innerHTML = "";
 
@@ -109,17 +111,16 @@ function renderHighScore(){
     };
 };
 
+// Stores scores and names to local storage
 function storeScores() {
     localStorage.setItem("listOfNameHistory", JSON.stringify(listOfNameHistory));
     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
 }
 
-// function storeInitials(){
-//     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
-// }
-
+// Adds functions to submit button 
 submit.addEventListener("click", function(){
     inputValue = document.querySelector('input').value;
+    // If user doesn't enter anything in the input box don't do anything
     if(inputValue == ""){
         return;
     }
@@ -127,15 +128,13 @@ submit.addEventListener("click", function(){
     inputValue = "";
     // call function that stores 
     storeScores();
-    // saveScore();
     renderHighScore();
     initialsContainer.setAttribute("style", "display: none");
     highScoresSection.setAttribute("style", "display: block");
 
 });
 
-
-
+// Adds function to display high scores page when view high scores button is clicked
 highScoresButton.addEventListener("click", function(){
     isHighScores = true;
     clearInterval(highScoresButton);
@@ -145,12 +144,13 @@ highScoresButton.addEventListener("click", function(){
     initialsContainer.setAttribute("style", "display:none");
     highScoresSection.setAttribute("style", "display: block");
 
-})
+});
 
 // Declares a function that renders the answers
 function renderAnswers() {
     // Clears the content inside the answer element when new questions are generated
     answersElement.innerHTML = "";
+    // creates li elements to display high scores on the page
     for (var i = 0; i < questions[index].answers.length; i++) {
         var renderedAnswer = document.createElement("li");
         renderedAnswer.textContent = questions[index].answers[i];
@@ -158,28 +158,22 @@ function renderAnswers() {
     };
 };
 
+// Function checks if the quiz is over by comparing the index value to the questions array length, or, if time runs out
 function isQuizOver(){
     if(index == questions.length || secondsLeft === 0){
         endQuiz();
-    }
-}
+    };
+};
 
-// function saveScore(){
-//     var initials = initialsElement.value.trim();
-//     localStorage.setItem("initials", initials);
-//     localStorage.setItem("score", score);
-// }
-
-
+// This function ends the quiz by hiding the questions container and displaying the final page
 function endQuiz(){
     questionContainer.setAttribute("style", "display: none");
     initialsContainer.setAttribute("style", "display: block");
     finalScore.textContent = "Your final score is " + score + "!";
     listOfScoreHistory.push(score);
+    initialsElement.value = "";
 
 }
-
-
 
 // Declares a function that renders the questions
 function renderQuestion() {
@@ -190,6 +184,7 @@ function renderQuestion() {
         questionsElement.appendChild(renderedQuestion);
 };
 
+// Function first checks if the time is less than 10 seconds to end the quiz before penalizing, else, penalizes 10 seconds to the time
 function decrementTime() {
     if (secondsLeft < 10){
         endQuiz();
@@ -198,9 +193,9 @@ function decrementTime() {
     };
 };
 
-
 //Adds event listener to answers parent element 
 answersElement.addEventListener("click", function(event){
+    debugger;
     // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
     if (event.target.textContent === answersElement.textContent){
         return;
@@ -220,11 +215,13 @@ answersElement.addEventListener("click", function(event){
     score = score + 10;
     }
     index ++;
+    // if statement checks if index value is not equal to length of questions to display the next question, other wise function ends and no new question is rendered
     if(index !== questions.length){
+        // setTimeout adds a delay before the next question is rendered so the feedback text is able to be read before page updating
         setTimeout(() => {
             renderQuestion();
             renderAnswers();
-      }, 1000);
+        }, 1000);
     };
 });
 
@@ -244,20 +241,12 @@ function setTimer() {
     }, 1000);
 };
 
-// declares function that adds 20 points to score
+// Declares function that adds 20 points to score
 function correct() {
     score + 20;
 };
 
-// Adds event listener to wait for the button to be clicked to call the setTimer function to begin countdown
+// Adds event listener to the Start Quiz button to call the startQuiz function 
 startButton.addEventListener("click", function() {
     startQuiz();
-});
-
-  
-  
-
-
-  
-
-  
+});  
