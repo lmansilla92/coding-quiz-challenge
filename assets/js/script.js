@@ -23,6 +23,7 @@ var isHighScores = false;
 var secondsLeft = 31;
 var score = 0;
 var index = 0;
+var listOfNameHistory = [];
 var listOfScoreHistory = [];
 var inputValue = "";
 
@@ -41,9 +42,9 @@ var questions = [
 ];
 
 // Load existing high scores from local storage
-var storedScores = localStorage.getItem("listOfScoreHistory");
+var storedScores = localStorage.getItem("listOfNameHistory");
 if (storedScores) {
-    listOfScoreHistory = JSON.parse(storedScores);
+    listOfNameHistory = JSON.parse(storedScores);
 }
 
 
@@ -72,6 +73,7 @@ function startQuiz() {
 clearScoresButton.addEventListener("click", function() {
     savedScoresList.innerHTML = "";
     localStorage.clear();
+    listOfNameHistory = [];
     listOfScoreHistory = [];
 });
 
@@ -93,9 +95,9 @@ function renderHighScore(){
     debugger;
     savedScoresList.innerHTML = "";
 
-    for (var i = 0; i < listOfScoreHistory.length; i++) {
-        var savedHighScore = localStorage.getItem("score");
-        var renderedHighScore = listOfScoreHistory[i] + " - " + savedHighScore;
+    for (var i = 0; i < listOfNameHistory.length; i++) {
+        var savedHighScore = listOfScoreHistory[i];
+        var renderedHighScore = listOfNameHistory[i] + " - " + savedHighScore;
         p = document.createElement("p");
         p.classList.add("logged-score");
         p.innerHTML = renderedHighScore;
@@ -104,7 +106,11 @@ function renderHighScore(){
     };
 };
 
-    function storeScores() {
+function storeScores() {
+    localStorage.setItem("listOfNameHistory", JSON.stringify(listOfNameHistory));
+}
+
+function storeInitials(){
     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
 }
 
@@ -113,7 +119,7 @@ submit.addEventListener("click", function(){
     if(inputValue == ""){
         return;
     }
-    listOfScoreHistory.push(inputValue);
+    listOfNameHistory.push(inputValue);
     inputValue = "";
     // call function that stores 
     storeScores();
@@ -165,6 +171,7 @@ function endQuiz(){
     questionContainer.setAttribute("style", "display: none");
     initialsContainer.setAttribute("style", "display: block");
     finalScore.textContent = "Your final score is " + score + "!";
+    listOfScoreHistory.push(score);
     saveScore();
 }
 
