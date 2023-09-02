@@ -36,6 +36,12 @@ var questions = [
       answer: "Document Object Model"},
 ];
 
+// Load existing high scores from local storage
+var storedScores = localStorage.getItem("listOfScoreHistory");
+if (storedScores) {
+    listOfScoreHistory = JSON.parse(storedScores);
+}
+
 
 // Hides the feedback at page load
 feedbackElement.setAttribute("style", "display: none;");
@@ -62,6 +68,7 @@ function renderHighScore(){
         var savedHighScore = localStorage.getItem("score");
         var renderedHighScore = listOfScoreHistory[i] + " - " + savedHighScore;
         var p = document.createElement("p");
+        p.classList.add("logged-score");
         p.innerHTML = renderedHighScore;
         p.setAttribute("data-index", i);
         savedScoresList.appendChild(p);
