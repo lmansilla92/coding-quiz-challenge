@@ -30,8 +30,22 @@
     margin: 11vh 12vw;
 }
 
-h1, h2{
+h1, h2, h3{
     font-size: 2.5rem;
+}
+
+p, label{
+    font-size: 1.5rem;
+}
+
+input{
+    padding: 8px;
+    width: 23.5rem;
+}
+
+#score-initial{
+    margin: 11vh 26vw;
+    display: none;
 }
 
 .start-quiz-p{

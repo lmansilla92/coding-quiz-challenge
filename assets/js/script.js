@@ -7,9 +7,12 @@ var questionContainer = document.querySelector("#question-container");
 var questionsElement = document.querySelector(".questions");
 var answersElement = document.querySelector(".answers");
 var feedbackElement = document.querySelector(".feedback");
+var initialsContainer = document.getElementById("score-initial");
+var finalScore = document.querySelector(".final-score");
 var secondsLeft = 76;
 var score = 0;
 var index = 0;
+
 
 // Declares an array of questions and answers
 var questions = [
@@ -23,19 +26,6 @@ var questions = [
       answers: ["Document Object Model", "Document Original Model", "Document Option Model", "Docuemnt Object Mode"], 
       answer: "Document Object Model"},
 ];
-
-// Navigates through questions
-// function navigate(direction) {
-//     index = index + direction;
-//     if (index < 0) { 
-//       index = questions.length - 1; 
-//     } else if (index > questions.length - 1) { 
-//       index = 0;
-//     }
-    // questionsElement = questions[index];
-// };
-
-
 
 
 // Hides the feedback at page load
@@ -72,7 +62,9 @@ function isQuizOver(){
 }
 
 function endQuiz(){
-    body.setAttribute("style", "display: none");
+    questionContainer.setAttribute("style", "display: none");
+    initialsContainer.setAttribute("style", "display: block");
+    finalScore.textContent = "Your final score is " + score + "!";
 }
 
 
@@ -86,6 +78,15 @@ function renderQuestion() {
         questionsElement.appendChild(renderedQuestion);
 };
 
+function decrementTime() {
+    if (secondsLeft < 10){
+        endQuiz();
+    }else {
+    secondsLeft = secondsLeft - 10;
+    };
+};
+
+
 //Adds event listener to answers parent element 
 answersElement.addEventListener("click", function(event){
     // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
@@ -97,6 +98,7 @@ answersElement.addEventListener("click", function(event){
         console.log("Wrong"); 
         feedbackElement.setAttribute("style", "display: true;");
         feedbackElement.textContent = "Wrong!";
+        decrementTime();
     // This code only runs if the correct answer is clicked
     } else {
         debugger;
@@ -104,6 +106,7 @@ answersElement.addEventListener("click", function(event){
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
     feedbackElement.textContent = "Correct!";
+    score = score + 10;
     }
     index ++;
     if(index !== questions.length){
