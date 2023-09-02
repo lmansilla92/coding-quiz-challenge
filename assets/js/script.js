@@ -66,15 +66,6 @@ function renderHighScore(){
         p.setAttribute("data-index", i);
         savedScoresList.appendChild(p);
     };
-
-
-
-    // var inputValue = document.querySelector('input').value;
-    // var savedInitials = inputValue;
-    // var savedHighScore = localStorage.getItem("score");
-    // var renderedHighScore = document.createElement("p");
-    // renderedHighScore.textContent = savedInitials + " - " + savedHighScore;
-    // savedScore.appendChild(renderedHighScore);
 };
 
     function storeScores() {
