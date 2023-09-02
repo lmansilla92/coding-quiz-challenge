@@ -70,8 +70,9 @@ function startQuiz() {
 
 
 clearScoresButton.addEventListener("click", function() {
+    savedScoresList.innerHTML = "";
     localStorage.clear();
-    savedScoresList.remove();
+    listOfScoreHistory = [];
 });
 
 function resetQuiz(){
