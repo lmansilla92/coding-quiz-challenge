@@ -13,8 +13,12 @@ var finalScore = document.querySelector(".final-score");
 var initialsElement = document.querySelector(".initials");
 var highScoresButton = document.querySelector(".high-scores-btn");
 var highScoresSection = document.getElementById("high-scores");
-var savedScoresList = document.querySelector(".initial-high-score")
+var savedScoresList = document.querySelector(".initial-high-score");
+var clearScoresButton = document.querySelector(".clear-scores");
+var tryAgainButton = document.querySelector(".try-again");
 var submit = document.querySelector(".submit");
+var isNewQuiz = false;
+var p;
 var isHighScores = false;
 var secondsLeft = 31;
 var score = 0;
@@ -49,6 +53,10 @@ feedbackElement.setAttribute("style", "display: none;");
 // Declares function that starts the quiz
 function startQuiz() {
     isHighScores = false;
+    if(isNewQuiz == true){
+        questionContainer.setAttribute("style", "display: block");
+    }
+    highScoresSection.setAttribute("style", "display: none;");
     // Hides the starting section with the button that starts the quiz
     startContainer.setAttribute("style", "display: none;");
     // Calls function to set the timer
@@ -60,6 +68,26 @@ function startQuiz() {
         renderAnswers();
 }; 
 
+
+clearScoresButton.addEventListener("click", function() {
+    localStorage.clear();
+    savedScoresList.remove();
+});
+
+function resetQuiz(){
+    secondsLeft = 31;
+    score = 0;
+    index = 0;
+    isNewQuiz = true;
+}
+
+tryAgainButton.addEventListener("click", function() {
+    debugger;
+    resetQuiz();
+    startQuiz();
+})
+
+
 function renderHighScore(){
     debugger;
     savedScoresList.innerHTML = "";
@@ -67,7 +95,7 @@ function renderHighScore(){
     for (var i = 0; i < listOfScoreHistory.length; i++) {
         var savedHighScore = localStorage.getItem("score");
         var renderedHighScore = listOfScoreHistory[i] + " - " + savedHighScore;
-        var p = document.createElement("p");
+        p = document.createElement("p");
         p.classList.add("logged-score");
         p.innerHTML = renderedHighScore;
         p.setAttribute("data-index", i);
@@ -120,7 +148,7 @@ function renderAnswers() {
 };
 
 function isQuizOver(){
-    if(index == questions.length){
+    if(index == questions.length || secondsLeft === 0){
         endQuiz();
     }
 }
