@@ -163,12 +163,12 @@ function renderQuestion() {
         questionsElement.appendChild(renderedQuestion);
 };
 
-// Function first checks if the time is less than 10 seconds to end the quiz before penalizing, else, penalizes 10 seconds to the time
+// Function first checks if the time is less than 10 seconds to check if quiz is over and eventually ends the quiz, else, penalizes 10 seconds to the time
 function decrementTime() {
     if (secondsLeft < 10){
-        endQuiz();
+        isQuizOver();
     }else {
-    secondsLeft = secondsLeft - 10;
+        secondsLeft = secondsLeft - 10;
     };
 };
 
@@ -203,7 +203,6 @@ answersElement.addEventListener("click", function(event){
         if(index !== questions.length){
             // setTimeout adds a delay before the next question is rendered so the feedback text is able to be read before page updating
             setTimeout(() => {
-                debugger;
                 isClickAllowed = false;
                 renderQuestion();
                 renderAnswers();
