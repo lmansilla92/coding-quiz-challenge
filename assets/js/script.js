@@ -41,17 +41,6 @@ var questions = [
       answer: "Document Object Model"},
 ];
 
-// Loads existing names from local storage
-var storedNames = localStorage.getItem("listOfNameHistory");
-if (storedNames) {
-    listOfNameHistory = JSON.parse(storedNames);
-}
-// Loads existing scores from local storage
-var storedScores = localStorage.getItem("listOfScoreHistory");
-if (storedScores) {
-    listOfScoreHistory = JSON.parse(storedScores);
-}
-
 // Hides the feedback at page load so top border doesn't show
 feedbackElement.setAttribute("style", "display: none;");
 
@@ -119,19 +108,7 @@ function storeScores() {
 
 // Adds functions to submit button 
 submit.addEventListener("click", function(){
-    inputValue = document.querySelector('input').value;
-    // If user doesn't enter anything in the input box don't do anything
-    if(inputValue == ""){
-        return;
-    }
-    listOfNameHistory.push(inputValue);
-    inputValue = "";
-    // call function that stores 
-    storeScores();
-    renderHighScore();
-    initialsContainer.setAttribute("style", "display: none");
-    highScoresSection.setAttribute("style", "display: block");
-
+    saveAndRenderScores();
 });
 
 // Adds function to display high scores page when view high scores button is clicked
@@ -177,6 +154,7 @@ function endQuiz(){
 
 // Declares a function that renders the questions
 function renderQuestion() {
+    renderedQuestion.id = index; // added from help
     feedbackElement.setAttribute("style", "display: none;");
     questionsElement.innerHTML = "";
         var renderedQuestion = document.createElement("h2");
@@ -195,19 +173,22 @@ function decrementTime() {
 
 //Adds event listener to answers parent element 
 answersElement.addEventListener("click", function(event){
-    debugger;
+    var currentDisplayed = event.target.parentElement.parentElement.children[0].children[0].id // added from help
+    if (index == currentDisplayed) {
     // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
     if (event.target.textContent === answersElement.textContent){
         return;
     }
     // Checks if user selected wrong answer
     if (event.target.textContent !== questions[index].answer){ 
+        event.preventDefault();
         console.log("Wrong"); 
         feedbackElement.setAttribute("style", "display: true;");
         feedbackElement.textContent = "Wrong!";
         decrementTime();
     // This code only runs if the correct answer is clicked
     } else {
+        event.preventDefault();
     console.log("Correct");
     // Makes feedback element visible
     feedbackElement.setAttribute("style", "display: true;");
@@ -219,11 +200,16 @@ answersElement.addEventListener("click", function(event){
     if(index !== questions.length){
         // setTimeout adds a delay before the next question is rendered so the feedback text is able to be read before page updating
         setTimeout(() => {
+            debugger;
+            isClickAllowed = false;
             renderQuestion();
             renderAnswers();
         }, 1000);
     };
+};
 });
+
+
 
 // Declares function that sets timer
 function setTimer() {
@@ -250,3 +236,48 @@ function correct() {
 startButton.addEventListener("click", function() {
     startQuiz();
 });  
+
+// On key down the function is referenced and assigned
+initialsElement.onkeydown = checkForEnter;
+
+// Function that checks if the enter button was pressed, if true, the saveAndRenderScores function runs
+function checkForEnter(event) {
+    if (event.key === "Enter") {
+        saveAndRenderScores();
+    };
+};
+
+// Saves and renders scores by pushing the inputValue to the list of names history
+function saveAndRenderScores(){
+    inputValue = document.querySelector('input').value;
+    // If user doesn't enter anything in the input box don't do anything
+    if(inputValue == ""){
+        return;
+    }
+    listOfNameHistory.push(inputValue);
+    inputValue = "";
+    // call function that stores 
+    storeScores();
+    renderHighScore();
+    initialsContainer.setAttribute("style", "display: none");
+    highScoresSection.setAttribute("style", "display: block");
+};
+
+
+
+// This function is being called when the page loads
+function init() {
+    // Gets local storage data and parsing it (turning it back to an object)
+    var storedHistoryN = JSON.parse(localStorage.getItem("listOfNameHistory"));
+    var storedHistoryS = JSON.parse(localStorage.getItem("listOfScoreHistory"));
+  
+    // If the data is not null, meaning there is data in local storage, then set the listOfNameHistory and listOfScoreHistory variables equal to the local storage data
+    if (storedHistoryN !== null && storedHistoryS !== null) {
+      listOfNameHistory = storedHistoryN;
+      listOfScoreHistory = storedHistoryS;
+    }
+    // Calls the renderHighScore function
+    renderHighScore();
+  }
+
+  init();
