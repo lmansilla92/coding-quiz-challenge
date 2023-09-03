@@ -154,10 +154,11 @@ function endQuiz(){
 
 // Declares a function that renders the questions
 function renderQuestion() {
-    renderedQuestion.id = index; // added from help
     feedbackElement.setAttribute("style", "display: none;");
     questionsElement.innerHTML = "";
         var renderedQuestion = document.createElement("h2");
+        // Sets the rendered question id to the index value
+        renderedQuestion.id = index; 
         renderedQuestion.textContent = questions[index].question;
         questionsElement.appendChild(renderedQuestion);
 };
@@ -173,40 +174,42 @@ function decrementTime() {
 
 //Adds event listener to answers parent element 
 answersElement.addEventListener("click", function(event){
-    var currentDisplayed = event.target.parentElement.parentElement.children[0].children[0].id // added from help
+    // Navigates through the DOM to get to the question element and extract it’s id
+    var currentDisplayed = event.target.parentElement.parentElement.children[0].children[0].id
+    // If index and the current displayed question id match, run code that accepts answer. This prevents the user from clicking an answer between questions being switched during the setTimeout delay
     if (index == currentDisplayed) {
     // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
-    if (event.target.textContent === answersElement.textContent){
-        return;
-    }
-    // Checks if user selected wrong answer
-    if (event.target.textContent !== questions[index].answer){ 
-        event.preventDefault();
-        console.log("Wrong"); 
+        if (event.target.textContent === answersElement.textContent){
+            return;
+        }
+        // Checks if user selected wrong answer
+        if (event.target.textContent !== questions[index].answer){ 
+            event.preventDefault();
+            console.log("Wrong"); 
+            feedbackElement.setAttribute("style", "display: true;");
+            feedbackElement.textContent = "Wrong!";
+            decrementTime();
+        // This code only runs if the correct answer is clicked
+        } else {
+            event.preventDefault();
+        console.log("Correct");
+        // Makes feedback element visible
         feedbackElement.setAttribute("style", "display: true;");
-        feedbackElement.textContent = "Wrong!";
-        decrementTime();
-    // This code only runs if the correct answer is clicked
-    } else {
-        event.preventDefault();
-    console.log("Correct");
-    // Makes feedback element visible
-    feedbackElement.setAttribute("style", "display: true;");
-    feedbackElement.textContent = "Correct!";
-    score = score + 10;
-    }
-    index ++;
-    // if statement checks if index value is not equal to length of questions to display the next question, other wise function ends and no new question is rendered
-    if(index !== questions.length){
-        // setTimeout adds a delay before the next question is rendered so the feedback text is able to be read before page updating
-        setTimeout(() => {
-            debugger;
-            isClickAllowed = false;
-            renderQuestion();
-            renderAnswers();
-        }, 1000);
+        feedbackElement.textContent = "Correct!";
+        score = score + 10;
+        }
+        index ++;
+        // if statement checks if index value is not equal to length of questions to display the next question, other wise function ends and no new question is rendered
+        if(index !== questions.length){
+            // setTimeout adds a delay before the next question is rendered so the feedback text is able to be read before page updating
+            setTimeout(() => {
+                debugger;
+                isClickAllowed = false;
+                renderQuestion();
+                renderAnswers();
+            }, 1000);
+        };
     };
-};
 });
 
 
@@ -262,8 +265,6 @@ function saveAndRenderScores(){
     initialsContainer.setAttribute("style", "display: none");
     highScoresSection.setAttribute("style", "display: block");
 };
-
-
 
 // This function is being called when the page loads
 function init() {
