@@ -27,7 +27,6 @@ var listOfNameHistory = [];
 var listOfScoreHistory = [];
 var inputValue = "";
 
-
 // Declares an array of questions and answers
 var questions = [
     { question: "Commonly used data types DO NOT include:", 
@@ -77,13 +76,13 @@ function resetQuiz(){
     index = 0;
     isNewQuiz = true;
     timerScoreContainer.setAttribute("style", "display: flex");
-}
+};
 
 // Adds event listener to restart quiz
 tryAgainButton.addEventListener("click", function() {
     resetQuiz();
     startQuiz();
-})
+});
 
 // Displays High Scores to the page
 function renderHighScore(){
@@ -104,7 +103,7 @@ function renderHighScore(){
 function storeScores() {
     localStorage.setItem("listOfNameHistory", JSON.stringify(listOfNameHistory));
     localStorage.setItem("listOfScoreHistory", JSON.stringify(listOfScoreHistory));
-}
+};
 
 // Adds functions to submit button 
 submit.addEventListener("click", function(){
@@ -150,7 +149,7 @@ function endQuiz(){
     listOfScoreHistory.push(score);
     initialsElement.value = "";
 
-}
+};
 
 // Declares a function that renders the questions
 function renderQuestion() {
@@ -181,7 +180,7 @@ answersElement.addEventListener("click", function(event){
     // If statement makes sure if the parent container is clicked, nothing happens to ensure user clicks an answer option only
         if (event.target.textContent === answersElement.textContent){
             return;
-        }
+        };
         // Checks if user selected wrong answer
         if (event.target.textContent !== questions[index].answer){ 
             event.preventDefault();
@@ -197,7 +196,7 @@ answersElement.addEventListener("click", function(event){
         feedbackElement.setAttribute("style", "display: true;");
         feedbackElement.textContent = "Correct!";
         score = score + 10;
-        }
+        };
         index ++;
         // if statement checks if index value is not equal to length of questions to display the next question, other wise function ends and no new question is rendered
         if(index !== questions.length){
@@ -210,8 +209,6 @@ answersElement.addEventListener("click", function(event){
         };
     };
 });
-
-
 
 // Declares function that sets timer
 function setTimer() {
@@ -255,7 +252,7 @@ function saveAndRenderScores(){
     // If user doesn't enter anything in the input box don't do anything
     if(inputValue == ""){
         return;
-    }
+    };
     listOfNameHistory.push(inputValue);
     inputValue = "";
     // call function that stores 
@@ -275,9 +272,9 @@ function init() {
     if (storedHistoryN !== null && storedHistoryS !== null) {
       listOfNameHistory = storedHistoryN;
       listOfScoreHistory = storedHistoryS;
-    }
-    // Calls the renderHighScore function
+    };
+     // Calls the renderHighScore function
     renderHighScore();
-  }
+};
 
   init();
